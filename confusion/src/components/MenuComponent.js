@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
 
 function Menu(props) {
@@ -17,24 +17,19 @@ function Menu(props) {
     );
   });
 
-  const selectedDishDetail = () => {
-    if (selectedDish != null) {
-        return (
-            <Card>
-                <CardImg width="100%" src={selectedDish.image} alt={selectedDish.name} />
-                <CardBody>
-                <CardTitle>{selectedDish.name}</CardTitle>
-                <CardText>{selectedDish.description}</CardText>
-                </CardBody>
-            </Card>
-        );
-    }
-    else {
-        return (
-            <div></div>
-        );
-    }
-  };
+  const selectedDishDetail = selectedDish != null
+    ? (
+        <Card>
+            <CardImg width="100%" src={selectedDish.image} alt={selectedDish.name} />
+            <CardBody>
+            <CardTitle>{selectedDish.name}</CardTitle>
+            <CardText>{selectedDish.description}</CardText>
+            </CardBody>
+        </Card>
+    )
+    : (
+        <div></div>
+    );
 
   return (
     <div className="container">
@@ -42,7 +37,7 @@ function Menu(props) {
         {menu}
       </div>
       <div className="row">
-          {selectedDishDetail()}
+          {selectedDishDetail}
       </div>
     </div>
   );
