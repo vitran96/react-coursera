@@ -1,6 +1,29 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody } from 'reactstrap';
 
+/**
+ *
+ * @param {{
+ *  dish: {
+ *    id: 0,
+ *    image: '',
+ *    category: '',
+ *    label: '',
+ *    price: '',
+ *    description: '',
+ *    comments: [
+ *      {
+ *        id: 0,
+ *        rating: 5,
+ *        comment: '',
+ *        author: '',
+ *        date: ''
+ *      }
+ *    ]
+ *  }
+ * }} props
+ * @returns
+ */
 function Dish({dish}) {
   const comments = dish.comments.map(comment =>
     (

@@ -2,6 +2,31 @@ import React, { useState } from 'react';
 import { Card, CardImg, CardImgOverlay } from 'reactstrap';
 import Dish from './DishComponent';
 
+/**
+ *
+ * @param {{
+ *  dishes: [
+ *    {
+ *      id: 0,
+ *      image: '',
+ *      category: '',
+ *      label: '',
+ *      price: '',
+ *      description: '',
+ *      comments: [
+ *        {
+ *          id: 0,
+ *          rating: 5,
+ *          comment: '',
+ *          author: '',
+ *          date: ''
+ *        }
+ *      ]
+ *    }
+ *  ]
+ * }} props
+ * @returns
+ */
 function Menu({dishes}) {
   const [selectedDish, setSelectedDish] = useState(null);
   const menu = dishes.map(dish =>
