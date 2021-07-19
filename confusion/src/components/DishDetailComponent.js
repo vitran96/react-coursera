@@ -31,15 +31,11 @@ function DishDetail({dish}) {
       <div></div>
     );
 
-  const commentDateTimeFunctor = (date) => {
-    return FormatDateTime({ year: 'numeric', month: 'short', day: '2-digit'}, date);
-  };
-
   const comments = dish.comments.map(comment =>
     (
       <div key={comment.id}>
         <p>{comment.comment}</p>
-        <p>-- {comment.author}, {commentDateTimeFunctor(comment.date)}</p>
+        <p>-- {comment.author}, {commentDateTime(comment.date)}</p>
       </div>
     )
   );
@@ -64,5 +60,9 @@ function DishDetail({dish}) {
     </div>
   );
 }
+
+const commentDateTime = (date) => {
+  return FormatDateTime({ year: 'numeric', month: 'short', day: '2-digit'}, date);
+};
 
 export default DishDetail;
