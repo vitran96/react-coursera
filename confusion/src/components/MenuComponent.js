@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardImg, CardImgOverlay } from 'reactstrap';
 
 /**
@@ -27,6 +27,11 @@ import { Card, CardImg, CardImgOverlay } from 'reactstrap';
  * @returns
  */
 function Menu({dishes, onClick}) {
+
+  useEffect(() => {
+    console.log("Menu mounted or updated");
+  });
+
   const menu = dishes.map(dish =>
     (
       <div key={dish.id} className="col-12 col-md-5 m-1">

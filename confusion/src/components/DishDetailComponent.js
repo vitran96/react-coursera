@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardImg, CardText, CardBody } from 'reactstrap';
 import { FormatDateTime } from '../shared/dateTimeHelper'
 
@@ -26,6 +26,17 @@ import { FormatDateTime } from '../shared/dateTimeHelper'
  * @returns
  */
 function DishDetail({dish}) {
+
+  useEffect(() => {
+    console.log("DishDetail mounted or updated");
+  });
+
+  useEffect(() => {
+    return () => {
+      console.log('DishDetail unmounted');
+    };
+  }, []);
+
   if (dish === undefined)
     return (
       <div></div>
