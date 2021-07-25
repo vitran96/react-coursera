@@ -37,37 +37,51 @@ function DishDetail({dish}) {
     };
   }, []);
 
-  if (dish === undefined)
+  if (dish === undefined) {
     return (
       <div></div>
     );
-
-  const comments = dish.comments.map(comment =>
-    (
-      <div key={comment.id}>
-        <p>{comment.comment}</p>
-        <p>-- {comment.author}, {commentDateTime(comment.date)}</p>
-      </div>
-    )
-  );
+  }
 
   return (
     <div className="container">
       <div className="row">
-        <div className="col-12 col-md-5 m-1">
-          <Card>
-            <CardImg width="100%" src={dish.image} alt={dish.name} />
-            <CardBody>
-              <h5 className="card-title">{dish.name}</h5>
-              <CardText>{dish.description}</CardText>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="col-12 col-md m-1">
-          <h4>Comments</h4>
-          {comments}
-        </div>
+        <RenderDish dish={dish}/>
+        <RenderComments comments={dish.comments}/>
       </div>
+    </div>
+  );
+}
+
+function RenderDish({dish}) {
+  return (
+    <div className="col-12 col-md-5 m-1">
+      <Card>
+        <CardImg width="100%" src={dish.image} alt={dish.name} />
+        <CardBody>
+          <h5 className="card-title">{dish.name}</h5>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
+    </div>
+  );
+}
+
+function RenderComments({comments}) {
+  const renderedComments = comments.map(comment => (<RenderComment commentObj={comment}/>));
+  return (
+    <div className="col-12 col-md m-1">
+      <h4>Comments</h4>
+      {renderedComments}
+    </div>
+  );
+}
+
+function RenderComment({commentObj}) {
+  return (
+    <div key={commentObj.id}>
+      <p>{commentObj.comment}</p>
+      <p>-- {commentObj.author}, {commentDateTime(commentObj.date)}</p>
     </div>
   );
 }

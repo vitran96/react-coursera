@@ -57,7 +57,7 @@ function RenderMenuItem({dish, onClick}) {
         <h5 className="card-title">{dish.name}</h5>
       </CardImgOverlay>
     </Card>
-  )
+  );
 }
 
 export default Menu;
