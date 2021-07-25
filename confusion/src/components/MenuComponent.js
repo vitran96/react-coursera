@@ -35,12 +35,7 @@ function Menu({dishes, onClick}) {
   const menu = dishes.map(dish =>
     (
       <div key={dish.id} className="col-12 col-md-5 m-1">
-        <Card onClick={() => onClick(dish.id)}>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
-          <CardImgOverlay>
-            <h5 className="card-title">{dish.name}</h5>
-          </CardImgOverlay>
-        </Card>
+        <RenderMenuItem dish={dish} onClick={onClick}/>
       </div>
     )
   );
@@ -52,6 +47,17 @@ function Menu({dishes, onClick}) {
       </div>
     </div>
   );
+}
+
+function RenderMenuItem({dish, onClick}) {
+  return (
+    <Card onClick={() => onClick(dish.id)}>
+      <CardImg width="100%" src={dish.image} alt={dish.name} />
+      <CardImgOverlay>
+        <h5 className="card-title">{dish.name}</h5>
+      </CardImgOverlay>
+    </Card>
+  )
 }
 
 export default Menu;
