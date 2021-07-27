@@ -3,6 +3,7 @@ import { DISHES } from '../shared/dishes';
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
 import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 
 function Main() {
   const [dishes] = useState(DISHES);
@@ -16,6 +17,7 @@ function Main() {
       <Menu dishes={dishes}
         onClick={(dishId) => setSelectedDishId(dishId)} />
       <DishDetail dish={selectedDish} />
+      <Footer/>
     </div>
   );
 }

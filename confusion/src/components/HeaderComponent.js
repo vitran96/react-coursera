@@ -4,7 +4,7 @@ import { Navbar, NavbarBrand, Jumbotron } from 'reactstrap';
 function Header() {
   return (
     <>
-      <Navbar>
+      <Navbar dark>
         <div className="container">
           <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
         </div>
