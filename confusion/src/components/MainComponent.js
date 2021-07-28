@@ -19,10 +19,12 @@ function Main() {
     );
   };
 
+  const selectDish = (dishId) => setSelectedDishId(dishId);
+
   const MenuPage = () => {
     return (
       <Menu dishes={dishes}
-        onClick={(dishId) => setSelectedDishId(dishId)} />
+        onClick={selectDish} />
     );
   };
 
