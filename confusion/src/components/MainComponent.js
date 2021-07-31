@@ -25,8 +25,7 @@ function Main() {
   const MenuPage = () => {
     return (
       <>
-        <Menu dishes={dishes}
-          onClick={selectDish} />
+        <Menu dishes={dishes} onClick={selectDish} />
         <DishDetail dish={selectedDish} />
       </>
     );
