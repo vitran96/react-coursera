@@ -1,31 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card, CardImg, CardImgOverlay } from 'reactstrap';
 
-/**
- *
- * @param {{
- *  dishes: [
- *    {
- *      id: 0,
- *      image: '',
- *      category: '',
- *      label: '',
- *      price: '',
- *      description: '',
- *      comments: [
- *        {
- *          id: 0,
- *          rating: 5,
- *          comment: '',
- *          author: '',
- *          date: ''
- *        }
- *      ]
- *    }
- *  ]
- * }} props
- * @returns
- */
 function Menu({dishes, onClick}) {
 
   useEffect(() => {
