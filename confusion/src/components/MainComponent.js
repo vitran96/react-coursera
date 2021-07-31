@@ -13,29 +13,32 @@ import Contact from './ContactComponent';
 
 function Main() {
   const [dishes] = useState(DISHES);
-  const [comments] = useState(COMMENTS)
-  const [promotions] = useState(PROMOTIONS)
-  const [leaders] = useState(LEADERS)
-  const [selectedDishId, setSelectedDishId] = useState(-1);
-
-  const selectedDish = dishes.find(dish => dish.id === selectedDishId);
+  const [comments] = useState(COMMENTS);
+  const [promotions] = useState(PROMOTIONS);
+  const [leaders] = useState(LEADERS);
 
   const HomePage = () => {
     return (
-      <Home dish={dishes.filter(dish => dish.featured)[0]}
-        promotion={promotions.filter(promo => promo.featured)[0]}
-        leader={leaders.filter(leader => leader.featured)[0]} />
+      <Home dish={dishes.find(dish => dish.featured)}
+        promotion={promotions.find(promo => promo.featured)}
+        leader={leaders.find(leader => leader.featured)} />
     );
   };
-
-  const selectDish = (dishId) => setSelectedDishId(dishId);
 
   const MenuPage = () => {
     return (
       <>
-        <Menu dishes={dishes} onClick={selectDish} />
-        <DishDetail dish={selectedDish} />
+        <Menu dishes={dishes} />
       </>
+    );
+  };
+
+  const DishWithId = ({match}) => {
+    const selectedDishId = parseInt(match.params.dishId, 10);
+    const selectedDish = dishes.find(dish => dish.id === selectedDishId);
+    const selectedComments = comments.filter(comment => comment.dishId === selectedDishId);
+    return (
+      <DishDetail dish={selectedDish} comments={selectedComments} />
     );
   };
 
@@ -45,6 +48,7 @@ function Main() {
       <Switch>
         <Route path="/home" component={HomePage} />
         <Route exact path="/menu" component={MenuPage} />
+        <Route path="/menu/:dishId" component={DishWithId} />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
