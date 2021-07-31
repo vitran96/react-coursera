@@ -6,6 +6,7 @@ import DishDetail from './DishDetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import Contact from './ContactComponent';
 
 function Main() {
   const [dishes] = useState(DISHES);
@@ -23,8 +24,11 @@ function Main() {
 
   const MenuPage = () => {
     return (
-      <Menu dishes={dishes}
-        onClick={selectDish} />
+      <>
+        <Menu dishes={dishes}
+          onClick={selectDish} />
+        <DishDetail dish={selectedDish} />
+      </>
     );
   };
 
@@ -33,16 +37,13 @@ function Main() {
       <Header />
       <Switch>
         <Route path="/home" component={HomePage} />
-        <Route exact path="/menu"
-          component={MenuPage} />
+        <Route exact path="/menu" component={MenuPage} />
+        <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
       <Footer />
     </div>
   );
 }
-{/* <Menu dishes={dishes}
-        onClick={(dishId) => setSelectedDishId(dishId)} />
-      <DishDetail dish={selectedDish} /> */}
 
 export default Main;
