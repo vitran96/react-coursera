@@ -7,23 +7,41 @@ const ContactTypes = {
   , EMAIL: "Email"
 }
 
+const initFormValue = {
+  firstname: ''
+  , lastname: ''
+  , telnum: ''
+  , email: ''
+  , agree: false
+  , contactType: ContactTypes.TEL
+  , message: ''
+}
+
 function ContactForm() {
-  const [firstname] = useState('');
-  const [lastname] = useState('');
-  const [telnum] = useState('');
-  const [email] = useState('');
-  const [agree] = useState(false);
-  const [contactType] = useState('Tel.');
-  const [message] = useState('');
+  const [formValues, setFormValues] = useState(initFormValue);
+
+  const update = event => {
+    const target = event.target;
+    setFormValues(currentValues => ({
+      ...currentValues
+      , [target.name]: target.value
+    }));
+  }
+
+  const submit = (e) => {
+    e.preventDefault();
+    // console.log(formValues);
+    alert(JSON.stringify(formValues));
+  }
 
   return (
-    <Form>
+    <Form onSubmit={submit}>
       <FormGroup row>
         <Label for="firstname" md={2}>First Name</Label>
         <Col md={10}>
           <Input type="text" id="firstname" name="firstname"
             placeholder="First Name"
-            value={firstname} />
+            value={formValues.firstname} onChange={update} />
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -31,7 +49,7 @@ function ContactForm() {
         <Col md={10}>
           <Input type="text" id="lastname" name="lastname"
             placeholder="Last Name"
-            value={lastname} />
+            value={formValues.lastname} onChange={update} />
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -39,7 +57,7 @@ function ContactForm() {
         <Col md={10}>
           <Input type="tel" id="telnum" name="telnum"
             placeholder="Tel. Number"
-            value={telnum} />
+            value={formValues.telnum} onChange={update} />
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -47,25 +65,25 @@ function ContactForm() {
         <Col md={10}>
           <Input type="email" id="email" name="email"
             placeholder="Email"
-            value={email} />
+            value={formValues.email} onChange={update} />
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Col md={{size: 6, offset: 2}}>
+        <Col md={{ size: 6, offset: 2 }}>
           <FormGroup check>
             <Label check>
               <Input type="checkbox" name="agree"
-                checked={agree} /> { ' ' }
-                <strong>May we contact you?</strong>
+                checked={formValues.agree} onChange={update} />
+              <strong>May we contact you?</strong>
             </Label>
           </FormGroup>
         </Col>
-        <Col md={{size: 3, offset: 1}}>
+        <Col md={{ size: 3, offset: 1 }}>
           <Input type="select" name="contactType"
-            value={contactType}>
-              <option>{ContactTypes.TEL}</option>
-              <option>{ContactTypes.EMAIL}</option>
-            </Input>
+            value={formValues.contactType} onChange={update}>
+            <option>{ContactTypes.TEL}</option>
+            <option>{ContactTypes.EMAIL}</option>
+          </Input>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -73,11 +91,11 @@ function ContactForm() {
         <Col md={10}>
           <Input type="textarea" id="message" name="message"
             rows="12"
-            value={message} />
+            value={formValues.message} onChange={update} />
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Col md={{size: 10, offset: 2}}>
+        <Col md={{ size: 10, offset: 2 }}>
           <Button type="submit" color="primary">Send Feedback</Button>
         </Col>
       </FormGroup>

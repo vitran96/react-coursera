@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, CardImg, CardImgOverlay } from 'reactstrap';
-
-function RenderEmployees({ employees }) {
-  //
-}
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader } from 'reactstrap';
 
 function RenderEmployee({ employee }) {
   return (
