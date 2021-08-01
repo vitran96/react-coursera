@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardImgOverlay } from 'reactstrap';
 
 
-function RenderMenuItem({ dish, onClick }) {
+function RenderMenuItem({ dish }) {
   return (
     <Card>
       <Link to={`/menu/${dish.id}`}>
@@ -16,7 +16,7 @@ function RenderMenuItem({ dish, onClick }) {
   );
 }
 
-function Menu({ dishes, onClick }) {
+function Menu({ dishes }) {
 
   const menu = dishes.map(dish =>
   (
