@@ -2,7 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, CardImg, CardImgOverlay } from 'reactstrap';
 
-function About() {
+function RenderEmployees({ employees }) {
+  //
+}
+
+function RenderEmployee({ employee }) {
+  return (
+    <>
+      <div className="col-2"><img src={employee.image} alt={employee.name} /></div>
+      <div className="col-10">
+        <h4>{employee.name}</h4>
+        <p>{employee.designation}</p>
+        <p>{employee.description}</p>
+      </div>
+    </>
+  )
+}
+function About({ employees }) {
+  const employeeRows = employees.map(employee => (<RenderEmployee employee={employee} />));
 
   return (
     <div className="container">
@@ -44,13 +61,22 @@ function About() {
         <div className="col-12">
           <div className="card card-body">
             <blockquote className="blockquote">
-              <p>You better cut the pizza in four piecues because I'm not hungry enough to eat six.</p>
-              <footer>
-                <cite>The Wit and Wisdom of Yogi Berra, P. Pepe, Diversion Books, 2014</cite>
+              <p className="mb-0">You better cut the pizza in four piecues because I'm not hungry enough to eat six.</p>
+              <footer className="blockquote-footer">
+                <cite title="Source title">The Wit and Wisdom of Yogi Berra, P. Pepe, Diversion Books, 2014</cite>
               </footer>
             </blockquote>
           </div>
         </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <hr />
+        </div>
+      </div>
+      <h3>Corporate Leadership</h3>
+      <div className="row ml-1 mb-4">
+        {employeeRows}
       </div>
     </div>
   );

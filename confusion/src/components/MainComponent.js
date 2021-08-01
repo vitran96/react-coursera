@@ -28,13 +28,17 @@ function Main() {
 
   const MenuPage = () => {
     return (
-      <>
-        <Menu dishes={dishes} />
-      </>
+      <Menu dishes={dishes} />
     );
   };
 
-  const DishWithId = ({match}) => {
+  const AboutPage = () => {
+    return (
+      <About employees={leaders} />
+    );
+  }
+
+  const DishWithId = ({ match }) => {
     const selectedDishId = parseInt(match.params.dishId, 10);
     const selectedDish = dishes.find(dish => dish.id === selectedDishId);
     const selectedComments = comments.filter(comment => comment.dishId === selectedDishId);
@@ -50,7 +54,7 @@ function Main() {
         <Route path="/home" component={HomePage} />
         <Route exact path="/menu" component={MenuPage} />
         <Route path="/menu/:dishId" component={DishWithId} />
-        <Route exact path="/aboutus" component={About} />
+        <Route exact path="/aboutus" component={AboutPage} />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>

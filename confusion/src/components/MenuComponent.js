@@ -5,26 +5,23 @@ import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardImgOverlay } from 'react
 
 function RenderMenuItem({ dish }) {
   return (
-    <Card>
-      <Link to={`/menu/${dish.id}`}>
-        <CardImg width="100%" src={dish.image} alt={dish.name} />
-        <CardImgOverlay>
-          <h5 className="card-title">{dish.name}</h5>
-        </CardImgOverlay>
-      </Link>
-    </Card>
+    <div key={dish.id} className="col-12 col-md-5 m-1">
+      <Card>
+        <Link to={`/menu/${dish.id}`}>
+          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImgOverlay>
+            <h5 className="card-title">{dish.name}</h5>
+          </CardImgOverlay>
+        </Link>
+      </Card>
+    </div>
+
   );
 }
 
 function Menu({ dishes }) {
 
-  const menu = dishes.map(dish =>
-  (
-    <div key={dish.id} className="col-12 col-md-5 m-1">
-      <RenderMenuItem dish={dish} />
-    </div>
-  )
-  );
+  const menu = dishes.map(dish => (<RenderMenuItem dish={dish} />));
 
   return (
     <div className="container">
