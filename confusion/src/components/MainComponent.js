@@ -10,6 +10,7 @@ import DishDetail from './DishDetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 
 function Main() {
   const [dishes] = useState(DISHES);
@@ -49,6 +50,7 @@ function Main() {
         <Route path="/home" component={HomePage} />
         <Route exact path="/menu" component={MenuPage} />
         <Route path="/menu/:dishId" component={DishWithId} />
+        <Route exact path="/aboutus" component={About} />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
