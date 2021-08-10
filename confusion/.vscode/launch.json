@@ -6,7 +6,8 @@
       "request": "launch",
       "name": "Launch chrome",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}/src",
+      "preLaunchTask": "npm: start"
     }
   ]
 }

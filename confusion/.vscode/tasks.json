@@ -6,8 +6,23 @@
       "group": "build",
       "problemMatcher": [],
       "label": "npm: build",
-      "detail": "react-scripts build"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "ˆ$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Compiling...",
+          "endsPattern": "Compiled .*"
+        }
+      },
+      "label": "npm: start",
+      "isBackground": true,
     }
   ]
-
 }
