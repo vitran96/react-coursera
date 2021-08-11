@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Button, Col, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Col, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 
 const ContactTypes = {
   TEL: "Tel."
@@ -17,31 +17,124 @@ const initFormValue = {
   , message: ''
 }
 
+const initTouchableFields = {
+  firstname: false
+  , lastname: false
+  , telnum: false
+  , email: false
+}
+
+const initInputErrors = {
+  firstname: ''
+  , lastname: ''
+  , telnum: ''
+  , email: ''
+}
+
+const TEL_NUM_REG = /^\d+$/;
+
 function ContactForm() {
   const [formValues, setFormValues] = useState(initFormValue);
+  const [touchedFields, setTouchedFields] = useState(initTouchableFields);
 
-  const update = event => {
+  const onChange = event => {
     const target = event.target;
     setFormValues(currentValues => ({
       ...currentValues
       , [target.name]: target.value
     }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    alert(JSON.stringify(formValues));
+  };
+
+  const onBlur = (event) => {
+    const target = event.target;
+    setTouchedFields(currentValues => ({
+      ...currentValues
+      , [target.name]: true
+    }));
+  };
+
+  const validateFirstname = (firstname, touched) => {
+    console.log(firstname.length);
+    if (!touched)
+      return '';
+
+    if (firstname.length < 0)
+      return 'First name should be more than 2 characters';
+    else if (firstname.length > 10)
+      return 'First name should be less than 10 characters';
+
+    return '';
   }
 
-  const submit = (e) => {
-    e.preventDefault();
-    // console.log(formValues);
-    alert(JSON.stringify(formValues));
+  const validateLastname = (lastname, touched) => {
+    if (!touched)
+      return '';
+
+    if (lastname.length < 2)
+      return 'Last name should be more than 2 characters';
+    else if (lastname.length > 10)
+      return 'Last name should be less than 10 characters';
+
+    return '';
   }
+
+  const validateTelnum = (telnum, touched) => {
+    if (!touched)
+      return '';
+
+    if (!TEL_NUM_REG.test(telnum))
+      return 'Tel. Number should contain only number';
+
+    return '';
+  }
+
+  const validateEmail = (email, touched) => {
+    if (!touched)
+      return '';
+
+    const hasMoreThan1At = email.split('')
+      .filter(char => char === '@')
+      .length !== 1;
+    if (hasMoreThan1At)
+      return 'Email should has only 1 "@"';
+
+    return '';
+  }
+
+  const validate = (firstname, lastname, telnum, email) => {
+    return {
+      firstname: validateFirstname(firstname, touchedFields.firstname)
+      , lastname: validateLastname(lastname, touchedFields.lastname)
+      , telnum: validateTelnum(telnum, touchedFields.telnum)
+      , email: validateEmail(email, touchedFields.email)
+    }
+  };
+
+  const errors = validate(
+    formValues.firstname
+    , formValues.lastname
+    , formValues.telnum
+    , formValues.email
+  );
 
   return (
-    <Form onSubmit={submit}>
+    <Form onSubmit={onSubmit}>
       <FormGroup row>
         <Label for="firstname" md={2}>First Name</Label>
         <Col md={10}>
           <Input type="text" id="firstname" name="firstname"
             placeholder="First Name"
-            value={formValues.firstname} onChange={update} />
+            value={formValues.firstname}
+            valid={errors.firstname === ''}
+            invalid={errors.firstname !== ''}
+            onBlur={onBlur}
+            onChange={onChange} />
+          <FormFeedback>{errors.firstname}</FormFeedback>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -49,7 +142,12 @@ function ContactForm() {
         <Col md={10}>
           <Input type="text" id="lastname" name="lastname"
             placeholder="Last Name"
-            value={formValues.lastname} onChange={update} />
+            value={formValues.lastname}
+            valid={errors.lastname === ''}
+            invalid={errors.lastname !== ''}
+            onBlur={onBlur}
+            onChange={onChange} />
+          <FormFeedback>{errors.lastname}</FormFeedback>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -57,7 +155,12 @@ function ContactForm() {
         <Col md={10}>
           <Input type="tel" id="telnum" name="telnum"
             placeholder="Tel. Number"
-            value={formValues.telnum} onChange={update} />
+            value={formValues.telnum}
+            valid={errors.telnum === ''}
+            invalid={errors.telnum !== ''}
+            onBlur={onBlur}
+            onChange={onChange} />
+          <FormFeedback>{errors.telnum}</FormFeedback>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -65,7 +168,12 @@ function ContactForm() {
         <Col md={10}>
           <Input type="email" id="email" name="email"
             placeholder="Email"
-            value={formValues.email} onChange={update} />
+            value={formValues.email}
+            valid={errors.email === ''}
+            invalid={errors.email !== ''}
+            onBlur={onBlur}
+            onChange={onChange} />
+          <FormFeedback>{errors.email}</FormFeedback>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -73,14 +181,14 @@ function ContactForm() {
           <FormGroup check>
             <Label check>
               <Input type="checkbox" name="agree"
-                checked={formValues.agree} onChange={update} />
+                checked={formValues.agree} onChange={onChange} />
               <strong>May we contact you?</strong>
             </Label>
           </FormGroup>
         </Col>
         <Col md={{ size: 3, offset: 1 }}>
           <Input type="select" name="contactType"
-            value={formValues.contactType} onChange={update}>
+            value={formValues.contactType} onChange={onChange}>
             <option>{ContactTypes.TEL}</option>
             <option>{ContactTypes.EMAIL}</option>
           </Input>
@@ -91,7 +199,7 @@ function ContactForm() {
         <Col md={10}>
           <Input type="textarea" id="message" name="message"
             rows="12"
-            value={formValues.message} onChange={update} />
+            value={formValues.message} onChange={onChange} />
         </Col>
       </FormGroup>
       <FormGroup row>
