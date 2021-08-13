@@ -39,8 +39,8 @@ function ContactForm() {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
     alert(JSON.stringify(formValues));
+    e.preventDefault();
   };
 
   const onBlur = (event) => {
