@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, ModalHeader, ModalBody, Modal, Button, FormGroup, Form, Label, Input } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
@@ -6,13 +6,16 @@ function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  let usernameInput = useRef({});
+  let passwordInput = useRef({});
+  let rememberedInput = useRef({});
+
   const toggleNav = () => setIsNavOpen(!isNavOpen);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   const onSubmit = (event) => {
+    alert("Username: " + usernameInput.value + " Password: " + passwordInput.value + " Remember: " + rememberedInput.checked);
     this.toggleModal();
-    alert("Username: " + this.username.value + " Password: " + this.password.value
-      + " Remember: " + this.remember.checked);
     event.preventDefault();
   }
 
@@ -72,15 +75,15 @@ function Header() {
           <Form onSubmit={onSubmit}>
             <FormGroup>
               <Label htmlFor="username">Username</Label>
-              <Input type="text" id="username" name="username" />
+              <Input type="text" id="username" name="username" innerRef={input => usernameInput = input} />
             </FormGroup>
             <FormGroup>
-              <Label htmlFor="password">Username</Label>
-              <Input type="password" id="password" name="password" />
+              <Label htmlFor="password">Password</Label>
+              <Input type="password" id="password" name="password" innerRef={input => passwordInput = input} />
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Input type="checkbox" name="remember" />Remember me
+                <Input type="checkbox" name="remember" innerRef={input => rememberedInput = input} />Remember me
               </Label>
             </FormGroup>
             <Button type="submit" value="submit" color="primary">Login</Button>
