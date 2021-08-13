@@ -14,6 +14,7 @@ function RenderEmployee({ employee }) {
     </>
   )
 }
+
 function About({ employees }) {
   const employeeRows = employees.map(employee => (<RenderEmployee employee={employee} />));
 
