@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, ModalHeader, ModalBody, Modal, Button, FormGroup, Form } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, ModalHeader, ModalBody, Modal, Button, FormGroup, Form, Label, Input } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 function Header() {
@@ -71,7 +71,19 @@ function Header() {
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
+              <Label htmlFor="username">Username</Label>
+              <Input type="text" id="username" name="username" />
             </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password">Username</Label>
+              <Input type="password" id="password" name="password" />
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input type="checkbox" name="remember" />Remember me
+              </Label>
+            </FormGroup>
+            <Button type="submit" value="submit" color="primary">Login</Button>
           </Form>
         </ModalBody>
       </Modal>
