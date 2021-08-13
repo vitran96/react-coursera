@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Button, Col, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 
@@ -22,13 +22,6 @@ const initTouchableFields = {
   , lastname: false
   , telnum: false
   , email: false
-}
-
-const initInputErrors = {
-  firstname: ''
-  , lastname: ''
-  , telnum: ''
-  , email: ''
 }
 
 const TEL_NUM_REG = /^\d+$/;
