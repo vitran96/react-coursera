@@ -5,7 +5,7 @@
       "script": "build",
       "group": "build",
       "problemMatcher": [],
-      "label": "npm: build",
+      "label": "Build",
     },
     {
       "type": "npm",
@@ -21,7 +21,7 @@
           "endsPattern": "Compiled .*"
         }
       },
-      "label": "npm: start",
+      "label": "Start client",
       "isBackground": true,
     }
   ]
