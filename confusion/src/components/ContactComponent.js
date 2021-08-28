@@ -39,9 +39,9 @@ function ContactForm() {
             model=".firstname"
             show="touched"
             messages={{
-              required: 'Required',
-              minLength: 'Must be greater than 2 characters',
-              maxLength: 'Must be less than 15 characters'
+              required: 'Required. ',
+              minLength: 'Must be greater than 2 characters. ',
+              maxLength: 'Must be less than 15 characters. '
             }} />
         </Col>
       </Row>
@@ -60,9 +60,9 @@ function ContactForm() {
             model=".lastname"
             show="touched"
             messages={{
-              required: 'Required',
-              minLength: 'Must be greater than 2 characters',
-              maxLength: 'Must be less than 15 characters'
+              required: 'Required. ',
+              minLength: 'Must be greater than 2 characters. ',
+              maxLength: 'Must be less than 15 characters. '
             }} />
         </Col>
       </Row>
@@ -82,10 +82,10 @@ function ContactForm() {
             model=".telnum"
             show="touched"
             messages={{
-              required: 'Required',
-              minLength: 'Must be greater than 2 characters',
-              maxLength: 'Must be less than 15 characters',
-              isNumber: 'Number only'
+              required: 'Required. ',
+              minLength: 'Must be greater than 2 characters. ',
+              maxLength: 'Must be less than 15 characters. ',
+              isNumber: 'Number only. '
             }} />
         </Col>
       </Row>
@@ -103,8 +103,8 @@ function ContactForm() {
             model=".email"
             show="touched"
             messages={{
-              required: 'Required',
-              validEmail: 'Invalid email address'
+              required: 'Required. ',
+              validEmail: 'Invalid email address. '
             }} />
         </Col>
       </Row>
