@@ -7,6 +7,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import { addComment } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -17,7 +18,11 @@ const mapStateToProps = state => {
   };
 }
 
-function Main({dishes, comments, promotions, leaders}) {
+const mapDispatchToProps = dispatch => ({
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+});
+
+function Main({dishes, comments, promotions, leaders, addComment}) {
 
   const HomePage = () => {
     return (
@@ -44,7 +49,7 @@ function Main({dishes, comments, promotions, leaders}) {
     const selectedDish = dishes.find(dish => dish.id === selectedDishId);
     const selectedComments = comments.filter(comment => comment.dishId === selectedDishId);
     return (
-      <DishDetail dish={selectedDish} comments={selectedComments} />
+      <DishDetail dish={selectedDish} comments={selectedComments} addComment={addComment} />
     );
   };
 
@@ -64,4 +69,4 @@ function Main({dishes, comments, promotions, leaders}) {
   );
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

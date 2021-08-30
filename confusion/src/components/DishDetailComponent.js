@@ -8,12 +8,12 @@ const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
 
-function CommentForm({ }) {
+function CommentForm({ dishId, addComment }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const onSubmit = (values) => {
     toggleModal();
-    alert(JSON.stringify(values));
+    addComment(dishId, values.rating, values.name, values.message);
   };
   return (
     <>
@@ -70,14 +70,13 @@ function CommentForm({ }) {
   )
 }
 
-function RenderComments({ comments }) {
-
+function RenderComments({ comments, dishId, addComment }) {
   const renderedComments = comments.map(comment => (<RenderComment commentObj={comment} />));
   return (
     <div className="col-12 col-md m-1">
       <h4>Comments</h4>
       {renderedComments}
-      <CommentForm />
+      <CommentForm dishId={dishId} addComment={addComment} />
     </div>
   );
 }
@@ -109,7 +108,7 @@ function RenderDish({ dish }) {
   );
 }
 
-function DishDetail({ dish, comments }) {
+function DishDetail({ dish, comments, addComment }) {
 
   if (dish === undefined) {
     return (
@@ -131,7 +130,7 @@ function DishDetail({ dish, comments }) {
       </div>
       <div className="row">
         <RenderDish dish={dish} />
-        <RenderComments comments={comments} />
+        <RenderComments comments={comments} dishId={dish.id} addComment={addComment} />
       </div>
     </div>
   );
