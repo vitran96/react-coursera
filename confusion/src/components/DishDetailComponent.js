@@ -8,26 +8,18 @@ const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
 
-function RenderComments({ comments }) {
+function CommentForm({ }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-
   const onSubmit = (values) => {
-    alert(JSON.stringify(values));
     toggleModal();
+    alert(JSON.stringify(values));
   };
-
-  const renderedComments = comments.map(comment => (<RenderComment commentObj={comment} />));
   return (
     <>
-      <div className="col-12 col-md m-1">
-        <h4>Comments</h4>
-        {renderedComments}
-        <Button outline onClick={toggleModal}>
-          <span className="fa fa-pencil"></span> Submit Comment
-        </Button>
-      </div>
+      <Button outline onClick={toggleModal}>
+        <span className="fa fa-pencil"></span> Submit Comment
+      </Button>
       <Modal isOpen={isModalOpen} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>Submit Comment</ModalHeader>
         <ModalBody>
@@ -75,6 +67,18 @@ function RenderComments({ comments }) {
         </ModalBody>
       </Modal>
     </>
+  )
+}
+
+function RenderComments({ comments }) {
+
+  const renderedComments = comments.map(comment => (<RenderComment commentObj={comment} />));
+  return (
+    <div className="col-12 col-md m-1">
+      <h4>Comments</h4>
+      {renderedComments}
+      <CommentForm />
+    </div>
   );
 }
 
