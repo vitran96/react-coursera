@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, Label, Modal, ModalBody, ModalHeader, Row, Col } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 import { FormatDateTime } from '../shared/dateTimeHelper';
+import { Loading } from './LoadingComponent';
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
@@ -108,9 +109,25 @@ function RenderDish({ dish }) {
   );
 }
 
-function DishDetail({ dish, comments, addComment }) {
+function DishDetail({ dish, isLoading, errorMessage, comments, addComment }) {
 
-  if (dish === undefined) {
+  if (isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
+  } else if (errorMessage) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{errorMessage}</h4>
+        </div>
+      </div>
+    );
+  } else if (dish === undefined) {
     return (
       <div></div>
     );

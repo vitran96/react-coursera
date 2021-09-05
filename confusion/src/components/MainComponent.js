@@ -7,7 +7,8 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { useEffect } from 'react';
 
 const mapStateToProps = state => {
   return {
@@ -19,14 +20,20 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () => dispatch(fetchDishes())
 });
 
-function Main({dishes, comments, promotions, leaders, addComment}) {
+function Main({dishes, comments, promotions, leaders, addComment, fetchDishes}) {
+  useEffect(() => {
+    fetchDishes();
+  }, []);
 
   const HomePage = () => {
     return (
-      <Home dish={dishes.find(dish => dish.featured)}
+      <Home dish={dishes.dishes.find(dish => dish.featured)}
+        dishesLoading={dishes.isLoading}
+        dishesErrorMessage={dishes.errorMessage}
         promotion={promotions.find(promo => promo.featured)}
         leader={leaders.find(leader => leader.featured)} />
     );
@@ -34,7 +41,7 @@ function Main({dishes, comments, promotions, leaders, addComment}) {
 
   const MenuPage = () => {
     return (
-      <Menu dishes={dishes} />
+      <Menu dishesState={dishes} />
     );
   };
 
@@ -46,10 +53,15 @@ function Main({dishes, comments, promotions, leaders, addComment}) {
 
   const DishWithId = ({ match }) => {
     const selectedDishId = parseInt(match.params.dishId, 10);
-    const selectedDish = dishes.find(dish => dish.id === selectedDishId);
+    const selectedDish = dishes.dishes.find(dish => dish.id === selectedDishId);
     const selectedComments = comments.filter(comment => comment.dishId === selectedDishId);
     return (
-      <DishDetail dish={selectedDish} comments={selectedComments} addComment={addComment} />
+      <DishDetail
+        dish={selectedDish}
+        isLoading={dishes.isLoading}
+        errorMessage={dishes.errorMessage}
+        comments={selectedComments}
+        addComment={addComment} />
     );
   };
 
