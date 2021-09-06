@@ -9,6 +9,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { addComment, fetchDishes } from '../redux/ActionCreators';
 import { useEffect } from 'react';
+import { actions } from 'react-redux-form';
 
 const mapStateToProps = state => {
   return {
@@ -21,10 +22,19 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-  fetchDishes: () => dispatch(fetchDishes())
+  fetchDishes: () => dispatch(fetchDishes()),
+  resetFeedbackForm: () => dispatch(actions.reset('feedback'))
 });
 
-function Main({dishes, comments, promotions, leaders, addComment, fetchDishes}) {
+function Main({
+  dishes,
+  comments,
+  promotions,
+  leaders,
+  addComment,
+  fetchDishes,
+  resetFeedbackForm
+}) {
   useEffect(() => {
     fetchDishes();
   }, []);
@@ -51,6 +61,12 @@ function Main({dishes, comments, promotions, leaders, addComment, fetchDishes}) 
     );
   }
 
+  const ContactPage = () => {
+    return (
+      <Contact resetFeedbackForm={resetFeedbackForm} />
+    );
+  }
+
   const DishWithId = ({ match }) => {
     const selectedDishId = parseInt(match.params.dishId, 10);
     const selectedDish = dishes.dishes.find(dish => dish.id === selectedDishId);
@@ -73,7 +89,7 @@ function Main({dishes, comments, promotions, leaders, addComment, fetchDishes}) 
         <Route exact path="/menu" component={MenuPage} />
         <Route path="/menu/:dishId" component={DishWithId} />
         <Route exact path="/aboutus" component={AboutPage} />
-        <Route exact path="/contactus" component={Contact} />
+        <Route exact path="/contactus" component={ContactPage} />
         <Redirect to="/home" />
       </Switch>
       <Footer />

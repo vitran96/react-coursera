@@ -1,12 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Button, Col, Label, Row } from 'reactstrap';
-import { Control, LocalForm, Errors } from 'react-redux-form';
-
-const ContactTypes = {
-  TEL: "Tel."
-  , EMAIL: "Email"
-}
+import { Control, Form, Errors, actions } from 'react-redux-form';
+import { ContactTypes } from '../redux/ContactTypes';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
@@ -16,14 +12,15 @@ const minLength = len => val => val && val.length >= len;
 const isNumber = val => !isNaN(Number(val));
 const validEmail = val => EMAIL_REGEX.test(val);
 
-function ContactForm() {
+function ContactForm({ reset }) {
 
   const onSubmit = (values) => {
     alert(JSON.stringify(values));
+    reset();
   };
 
   return (
-    <LocalForm onSubmit={ values => onSubmit(values) }>
+    <Form model="feedback" onSubmit={values => onSubmit(values)}>
       <Row className="form-group">
         <Label for="firstname" md={2}>First Name</Label>
         <Col md={10}>
@@ -139,11 +136,11 @@ function ContactForm() {
           <Button type="submit" color="primary">Send Feedback</Button>
         </Col>
       </Row>
-    </LocalForm>
+    </Form>
   );
 }
 
-function Contact() {
+function Contact({ resetFeedbackForm }) {
   return (
     <div className="container">
       <div className="row">
@@ -187,7 +184,7 @@ function Contact() {
           <h3>Send us Your Feedback</h3>
         </div>
         <div className="col-12 col-md-9">
-          <ContactForm />
+          <ContactForm reset={resetFeedbackForm} />
         </div>
       </div>
     </div>
