@@ -64,7 +64,6 @@ export const fetchPromos = () => (dispatch) => {
   });
 
   dispatch(promosLoading());
-
   return fetch(promotionsUrl)
     .then(response => response.json())
     .then(promos => dispatch(addPromos(promos)));

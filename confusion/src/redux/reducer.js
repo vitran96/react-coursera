@@ -1,5 +1,3 @@
-import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
@@ -62,9 +60,36 @@ export const Comments = (state = { errorMessage: null, comments: [] }, action) =
   }
 }
 
-export const Promotions = (state = PROMOTIONS, action) => {
-  return state;
-}
+export const Promotions = (state = {
+  isLoading: true,
+  errorMessage: null,
+  promotions: []
+}, action) => {
+  switch (action.type) {
+    case ActionTypes.ADD_PROMOS:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: null,
+        promotions: action.payload.map(promo => { return { ...promo, image: `${baseUrl}/${promo.image}` } })
+      };
+    case ActionTypes.PROMOS_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: null,
+        promotions: []
+      };
+    case ActionTypes.PROMOS_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload
+      };
+    default:
+      return state;
+  }
+};
 
 export const Leaders = (state = LEADERS, action) => {
   return state;

@@ -7,7 +7,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import { addComment, fetchComments, fetchDishes } from '../redux/ActionCreators';
+import { addComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
 import { useEffect } from 'react';
 import { actions } from 'react-redux-form';
 
@@ -24,16 +24,18 @@ const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
   fetchDishes: () => dispatch(fetchDishes()),
   resetFeedbackForm: () => dispatch(actions.reset('feedback')),
-  fetchComments: () => dispatch(fetchComments())
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos())
 });
 
 function Main(props) {
   const {dishesState, commentsState, promotionsState, leadersState} = props;
-  const {addComment, fetchDishes, resetFeedbackForm, fetchComments} = props;
+  const {addComment, fetchDishes, resetFeedbackForm, fetchComments, fetchPromos} = props;
 
   useEffect(() => {
     fetchDishes();
     fetchComments();
+    fetchPromos();
   }, []);
 
   const HomePage = () => {
@@ -41,7 +43,10 @@ function Main(props) {
       <Home dish={dishesState.dishes.find(dish => dish.featured)}
         dishesIsLoading={dishesState.isLoading}
         dishesErrorMessage={dishesState.errorMessage}
-        promotion={promotionsState.find(promo => promo.featured)}
+        // promotion={promotionsState.find(promo => promo.featured)}
+        promotion={promotionsState.promotions.find(promo => promo.featured)}
+        promotionsIsLoading={promotionsState.isLoading}
+        promotionsErrorMessage={promotionsState.errorMessage}
         leader={leadersState.find(leader => leader.featured)} />
     );
   };
