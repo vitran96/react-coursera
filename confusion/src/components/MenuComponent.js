@@ -5,7 +5,7 @@ import { Loading } from './LoadingComponent';
 
 function RenderMenuItem({ dish }) {
   return (
-    <div key={dish.id} className="col-12 col-md-5 m-1">
+    <div className="col-12 col-md-5 m-1">
       <Card>
         <Link to={`/menu/${dish.id}`}>
           <CardImg width="100%" src={dish.image} alt={dish.name} />
@@ -39,7 +39,7 @@ function Menu({ dishesState }) {
     );
   }
 
-  const menu = dishesState.dishes.map(dish => (<RenderMenuItem dish={dish} />));
+  const menu = dishesState.dishes.map(dish => (<RenderMenuItem dish={dish} key={dish.id} />));
 
   return (
     <div className="container">

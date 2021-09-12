@@ -7,7 +7,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { addComment, fetchComments, fetchDishes } from '../redux/ActionCreators';
 import { useEffect } from 'react';
 import { actions } from 'react-redux-form';
 
@@ -23,15 +23,17 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
   fetchDishes: () => dispatch(fetchDishes()),
-  resetFeedbackForm: () => dispatch(actions.reset('feedback'))
+  resetFeedbackForm: () => dispatch(actions.reset('feedback')),
+  fetchComments: () => dispatch(fetchComments())
 });
 
 function Main(props) {
   const {dishesState, commentsState, promotionsState, leadersState} = props;
-  const {addComment, fetchDishes, resetFeedbackForm} = props;
+  const {addComment, fetchDishes, resetFeedbackForm, fetchComments} = props;
 
   useEffect(() => {
     fetchDishes();
+    fetchComments();
   }, []);
 
   const HomePage = () => {
@@ -65,7 +67,7 @@ function Main(props) {
   const DishWithId = ({ match }) => {
     const selectedDishId = parseInt(match.params.dishId, 10);
     const selectedDish = dishesState.dishes.find(dish => dish.id === selectedDishId);
-    const selectedComments = commentsState.filter(comment => comment.dishId === selectedDishId);
+    const selectedComments = commentsState.comments.filter(comment => comment.dishId === selectedDishId);
     return (
       <DishDetail
         dish={selectedDish}

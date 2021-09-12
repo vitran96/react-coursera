@@ -72,7 +72,7 @@ function CommentForm({ dishId, addComment }) {
 }
 
 function RenderComments({ comments, dishId, addComment }) {
-  const renderedComments = comments.map(comment => (<RenderComment commentObj={comment} />));
+  const renderedComments = comments.map(comment => (<RenderComment commentObj={comment} key={comment.id} />));
   return (
     <div className="col-12 col-md m-1">
       <h4>Comments</h4>

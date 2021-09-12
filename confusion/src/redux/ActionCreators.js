@@ -44,8 +44,8 @@ export const fetchComments = () => (dispatch) => {
   });
 
   return fetch(commentsUrl)
-  .then(response => response.json())
-  .then(comments => dispatch(addComments(comments)));
+    .then(response => response.json())
+    .then(comments => dispatch(addComments(comments)));
 };
 
 export const fetchPromos = () => (dispatch) => {
@@ -66,6 +66,6 @@ export const fetchPromos = () => (dispatch) => {
   dispatch(promosLoading());
 
   return fetch(promotionsUrl)
-  .then(response => response.json())
-  .then(promos => dispatch(addPromos(promos)));
+    .then(response => response.json())
+    .then(promos => dispatch(addPromos(promos)));
 }
