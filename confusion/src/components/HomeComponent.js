@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle } from 'reactstrap';
-import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
 
 function RenderCard({item, isLoading, errorMessage}) {
@@ -24,13 +23,9 @@ function RenderCard({item, isLoading, errorMessage}) {
     return null;
   };
 
-  let imageUrl = item.image;
-  if (!item.image.includes("assets"))
-    imageUrl = `${baseUrl}/${item.image}`;
-  console.log(imageUrl); // TODO: remove
   return (
     <Card>
-      <CardImg src={imageUrl} alt={item.name} />
+      <CardImg src={item.image} alt={item.name} />
       <CardBody>
         <CardTitle>{item.name}</CardTitle>
         {maybeSubtitle()}

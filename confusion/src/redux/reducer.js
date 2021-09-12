@@ -2,6 +2,7 @@ import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 import * as ActionTypes from './ActionTypes';
+import { baseUrl } from '../shared/baseUrl';
 
 export const Dishes = (state = {
     isLoading: true,
@@ -14,7 +15,7 @@ export const Dishes = (state = {
         ...state,
         isLoading: false,
         errorMessage: null,
-        dishes: action.payload
+        dishes: action.payload.map(dish => {return {...dish, image: `${baseUrl}/${dish.image}`}})
       };
     case ActionTypes.DISHES_LOADING:
       return {

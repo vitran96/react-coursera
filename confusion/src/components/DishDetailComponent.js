@@ -3,7 +3,6 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 import { FormatDateTime } from '../shared/dateTimeHelper';
-import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
 
 const required = val => val && val.length;
@@ -97,14 +96,10 @@ const commentDateTime = (date) => {
 };
 
 function RenderDish({ dish }) {
-  let dishImageUrl = dish.image;
-  if (!dish.image.includes("assets"))
-    dishImageUrl = `${baseUrl}/${dish.image}`;
-  console.log(dishImageUrl); // TODO: remove
   return (
     <div className="col-12 col-md-5 m-1">
       <Card>
-        <CardImg width="100%" src={dishImageUrl} alt={dish.name} />
+        <CardImg width="100%" src={dish.image} alt={dish.name} />
         <CardBody>
           <h5 className="card-title">{dish.name}</h5>
           <CardText>{dish.description}</CardText>
