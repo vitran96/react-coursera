@@ -16,7 +16,7 @@ function RenderEmployee({ employee }) {
 }
 
 function About({ employees }) {
-  const employeeRows = employees.map(employee => (<RenderEmployee employee={employee} />));
+  const employeeRows = employees.map(employee => (<RenderEmployee employee={employee} key={employee.id}/>));
 
   return (
     <div className="container">
@@ -43,14 +43,14 @@ function About({ employees }) {
             <CardHeader className="bg-primary text-white">Facts At a Glance</CardHeader>
             <CardBody>
               <dl className="row">
-                <dt class="col-6">Started</dt>
-                <dd class="col-6">3 Feb 2013</dd>
-                <dt class="col-6">Major Stake Holder</dt>
-                <dd class="col-6">HK Fine Foods Inc.</dd>
-                <dt class="col-6">Last Year's Turnover</dt>
-                <dd class="col-6">$1,250,375</dd>
-                <dt class="col-6">Employees</dt>
-                <dd class="col-6">40</dd>
+                <dt className="col-6">Started</dt>
+                <dd className="col-6">3 Feb 2013</dd>
+                <dt className="col-6">Major Stake Holder</dt>
+                <dd className="col-6">HK Fine Foods Inc.</dd>
+                <dt className="col-6">Last Year's Turnover</dt>
+                <dd className="col-6">$1,250,375</dd>
+                <dt className="col-6">Employees</dt>
+                <dd className="col-6">40</dd>
               </dl>
             </CardBody>
           </Card>
