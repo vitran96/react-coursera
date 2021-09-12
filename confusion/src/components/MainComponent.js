@@ -13,10 +13,10 @@ import { actions } from 'react-redux-form';
 
 const mapStateToProps = state => {
   return {
-    dishes: state.dishes,
-    comments: state.comments,
-    promotions: state.promotions,
-    leaders: state.leaders
+    dishesState: state.dishes,
+    commentsState: state.comments,
+    promotionsState: state.promotions,
+    leadersState: state.leaders
   };
 }
 
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 function Main(props) {
-  const {dishes, comments, promotions, leaders} = props;
+  const {dishesState, commentsState, promotionsState, leadersState} = props;
   const {addComment, fetchDishes, resetFeedbackForm} = props;
 
   useEffect(() => {
@@ -36,23 +36,23 @@ function Main(props) {
 
   const HomePage = () => {
     return (
-      <Home dish={dishes.dishes.find(dish => dish.featured)}
-        dishesIsLoading={dishes.isLoading}
-        dishesErrorMessage={dishes.errorMessage}
-        promotion={promotions.find(promo => promo.featured)}
-        leader={leaders.find(leader => leader.featured)} />
+      <Home dish={dishesState.dishes.find(dish => dish.featured)}
+        dishesIsLoading={dishesState.isLoading}
+        dishesErrorMessage={dishesState.errorMessage}
+        promotion={promotionsState.find(promo => promo.featured)}
+        leader={leadersState.find(leader => leader.featured)} />
     );
   };
 
   const MenuPage = () => {
     return (
-      <Menu dishesState={dishes} />
+      <Menu dishesState={dishesState} />
     );
   };
 
   const AboutPage = () => {
     return (
-      <About employees={leaders} />
+      <About employees={leadersState} />
     );
   }
 
@@ -64,13 +64,13 @@ function Main(props) {
 
   const DishWithId = ({ match }) => {
     const selectedDishId = parseInt(match.params.dishId, 10);
-    const selectedDish = dishes.dishes.find(dish => dish.id === selectedDishId);
-    const selectedComments = comments.filter(comment => comment.dishId === selectedDishId);
+    const selectedDish = dishesState.dishes.find(dish => dish.id === selectedDishId);
+    const selectedComments = commentsState.filter(comment => comment.dishId === selectedDishId);
     return (
       <DishDetail
         dish={selectedDish}
-        dishIsLoading={dishes.isLoading}
-        dishErrorMessage={dishes.errorMessage}
+        dishIsLoading={dishesState.isLoading}
+        dishErrorMessage={dishesState.errorMessage}
         comments={selectedComments}
         addComment={addComment} />
     );
