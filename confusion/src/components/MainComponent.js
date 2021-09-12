@@ -26,15 +26,10 @@ const mapDispatchToProps = dispatch => ({
   resetFeedbackForm: () => dispatch(actions.reset('feedback'))
 });
 
-function Main({
-  dishes,
-  comments,
-  promotions,
-  leaders,
-  addComment,
-  fetchDishes,
-  resetFeedbackForm
-}) {
+function Main(props) {
+  const {dishes, comments, promotions, leaders} = props;
+  const {addComment, fetchDishes, resetFeedbackForm} = props;
+
   useEffect(() => {
     fetchDishes();
   }, []);

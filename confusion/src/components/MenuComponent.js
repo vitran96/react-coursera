@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardImgOverlay } from 'reactstrap';
+import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
 
-
 function RenderMenuItem({ dish }) {
+  let dishImageUrl = dish.image;
+  if (!dish.image.includes("assets"))
+    dishImageUrl = `${baseUrl}/${dish.image}`;
+  console.log(dishImageUrl); // TODO: remove
   return (
     <div key={dish.id} className="col-12 col-md-5 m-1">
       <Card>
         <Link to={`/menu/${dish.id}`}>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImg width="100%" src={dishImageUrl} alt={dish.name} />
           <CardImgOverlay>
             <h5 className="card-title">{dish.name}</h5>
           </CardImgOverlay>
