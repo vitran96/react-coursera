@@ -109,9 +109,11 @@ function RenderDish({ dish }) {
   );
 }
 
-function DishDetail({ dish, isLoading, errorMessage, comments, addComment }) {
+function DishDetail(props) {
+  const { dish, dishIsLoading, dishErrorMessage } = props;
+  const { comments, addComment } = props;
 
-  if (isLoading) {
+  if (dishIsLoading) {
     return (
       <div className="container">
         <div className="row">
@@ -119,11 +121,11 @@ function DishDetail({ dish, isLoading, errorMessage, comments, addComment }) {
         </div>
       </div>
     );
-  } else if (errorMessage) {
+  } else if (dishErrorMessage) {
     return (
       <div className="container">
         <div className="row">
-          <h4>{errorMessage}</h4>
+          <h4>{dishErrorMessage}</h4>
         </div>
       </div>
     );

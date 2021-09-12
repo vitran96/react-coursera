@@ -37,7 +37,7 @@ function Main(props) {
   const HomePage = () => {
     return (
       <Home dish={dishes.dishes.find(dish => dish.featured)}
-        dishesLoading={dishes.isLoading}
+        dishesIsLoading={dishes.isLoading}
         dishesErrorMessage={dishes.errorMessage}
         promotion={promotions.find(promo => promo.featured)}
         leader={leaders.find(leader => leader.featured)} />
@@ -69,8 +69,8 @@ function Main(props) {
     return (
       <DishDetail
         dish={selectedDish}
-        isLoading={dishes.isLoading}
-        errorMessage={dishes.errorMessage}
+        dishIsLoading={dishes.isLoading}
+        dishErrorMessage={dishes.errorMessage}
         comments={selectedComments}
         addComment={addComment} />
     );

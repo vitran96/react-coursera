@@ -36,7 +36,7 @@ function RenderCard({item, isLoading, errorMessage}) {
 }
 
 function Home(props) {
-  const {dish, dishesLoading, dishesErrorMessage} = props;
+  const {dish, dishesIsLoading, dishesErrorMessage} = props;
   const {promotion} = props;
   const {leader} = props;
 
@@ -45,7 +45,7 @@ function Home(props) {
       <div className="row align-item-start">
         <div className="col-12 col-md m-1">
           <RenderCard item={dish}
-            isLoading={dishesLoading}
+            isLoading={dishesIsLoading}
             errorMessage={dishesErrorMessage} />
         </div>
         <div className="col-12 col-md m-1">
