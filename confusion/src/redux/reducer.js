@@ -47,7 +47,8 @@ export const Comments = (state = { errorMessage: null, comments: [] }, action) =
     case ActionTypes.COMMENTS_FAILED:
       return {
         ...state,
-        errorMessage: action.payload
+        errorMessage: action.payload,
+        comments: []
       };
     case ActionTypes.ADD_COMMENTS:
       return {
@@ -81,10 +82,12 @@ export const Promotions = (state = {
         promotions: []
       };
     case ActionTypes.PROMOS_FAILED:
+      console.log(`reducer - promos failed - ${action.payload}`);
       return {
         ...state,
         isLoading: false,
-        errorMessage: action.payload
+        errorMessage: action.payload,
+        promotions: []
       };
     default:
       return state;

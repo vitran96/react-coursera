@@ -43,7 +43,6 @@ function Main(props) {
       <Home dish={dishesState.dishes.find(dish => dish.featured)}
         dishesIsLoading={dishesState.isLoading}
         dishesErrorMessage={dishesState.errorMessage}
-        // promotion={promotionsState.find(promo => promo.featured)}
         promotion={promotionsState.promotions.find(promo => promo.featured)}
         promotionsIsLoading={promotionsState.isLoading}
         promotionsErrorMessage={promotionsState.errorMessage}
@@ -79,6 +78,7 @@ function Main(props) {
         dishIsLoading={dishesState.isLoading}
         dishErrorMessage={dishesState.errorMessage}
         comments={selectedComments}
+        commentsErrorMessage={commentsState.errorMessage}
         addComment={addComment} />
     );
   };

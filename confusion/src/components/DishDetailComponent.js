@@ -71,7 +71,15 @@ function CommentForm({ dishId, addComment }) {
   )
 }
 
-function RenderComments({ comments, dishId, addComment }) {
+function RenderComments(props) {
+  const { comments, addComment, errorMessage } = props;
+  const { dishId} = props;
+  if (errorMessage) {
+    return (
+      <h4>{errorMessage}</h4>
+    );
+  }
+
   const renderedComments = comments.map(comment => (<RenderComment commentObj={comment} key={comment.id} />));
   return (
     <div className="col-12 col-md m-1">
@@ -111,7 +119,7 @@ function RenderDish({ dish }) {
 
 function DishDetail(props) {
   const { dish, dishIsLoading, dishErrorMessage } = props;
-  const { comments, addComment } = props;
+  const { comments, addComment, commentsErrorMessage } = props;
 
   if (dishIsLoading) {
     return (
@@ -149,7 +157,12 @@ function DishDetail(props) {
       </div>
       <div className="row">
         <RenderDish dish={dish} />
-        <RenderComments comments={comments} dishId={dish.id} addComment={addComment} />
+        <RenderComments
+          comments={comments}
+          errorMessage={commentsErrorMessage}
+          dishId={dish.id}
+          addComment={addComment}
+        />
       </div>
     </div>
   );
