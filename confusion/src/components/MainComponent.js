@@ -10,6 +10,7 @@ import About from './AboutComponent';
 import { postComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
 import { useEffect } from 'react';
 import { actions } from 'react-redux-form';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const mapStateToProps = state => {
   return {
@@ -29,8 +30,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 function Main(props) {
-  const {dishesState, commentsState, promotionsState, leadersState} = props;
-  const {postComment, fetchDishes, resetFeedbackForm, fetchComments, fetchPromos} = props;
+  const { dishesState, commentsState, promotionsState, leadersState } = props;
+  const { postComment, fetchDishes, resetFeedbackForm, fetchComments, fetchPromos } = props;
 
   useEffect(() => {
     fetchDishes();
@@ -86,14 +87,18 @@ function Main(props) {
   return (
     <div className="App">
       <Header />
-      <Switch>
-        <Route path="/home" component={HomePage} />
-        <Route exact path="/menu" component={MenuPage} />
-        <Route path="/menu/:dishId" component={DishWithId} />
-        <Route exact path="/aboutus" component={AboutPage} />
-        <Route exact path="/contactus" component={ContactPage} />
-        <Redirect to="/home" />
-      </Switch>
+      <TransitionGroup>
+        <CSSTransition key={props.location.key} classNames="page" timeout={300}>
+          <Switch>
+            <Route path="/home" component={HomePage} />
+            <Route exact path="/menu" component={MenuPage} />
+            <Route path="/menu/:dishId" component={DishWithId} />
+            <Route exact path="/aboutus" component={AboutPage} />
+            <Route exact path="/contactus" component={ContactPage} />
+            <Redirect to="/home" />
+          </Switch>
+        </CSSTransition>
+      </TransitionGroup>
       <Footer />
     </div>
   );
