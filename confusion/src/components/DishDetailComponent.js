@@ -9,12 +9,13 @@ const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
 
-function CommentForm({ dishId, addComment }) {
+function CommentForm(props) {
+  const { dishId, postComment } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const onSubmit = (values) => {
     toggleModal();
-    addComment(dishId, values.rating, values.name, values.message);
+    postComment(dishId, values.rating, values.name, values.message);
   };
   return (
     <>
@@ -72,7 +73,7 @@ function CommentForm({ dishId, addComment }) {
 }
 
 function RenderComments(props) {
-  const { comments, addComment, errorMessage } = props;
+  const { comments, postComment, errorMessage } = props;
   const { dishId} = props;
   if (errorMessage) {
     return (
@@ -85,7 +86,7 @@ function RenderComments(props) {
     <div className="col-12 col-md m-1">
       <h4>Comments</h4>
       {renderedComments}
-      <CommentForm dishId={dishId} addComment={addComment} />
+      <CommentForm dishId={dishId} postComment={postComment} />
     </div>
   );
 }
@@ -119,7 +120,7 @@ function RenderDish({ dish }) {
 
 function DishDetail(props) {
   const { dish, dishIsLoading, dishErrorMessage } = props;
-  const { comments, addComment, commentsErrorMessage } = props;
+  const { comments, postComment, commentsErrorMessage } = props;
 
   if (dishIsLoading) {
     return (
@@ -161,7 +162,7 @@ function DishDetail(props) {
           comments={comments}
           errorMessage={commentsErrorMessage}
           dishId={dish.id}
-          addComment={addComment}
+          postComment={postComment}
         />
       </div>
     </div>

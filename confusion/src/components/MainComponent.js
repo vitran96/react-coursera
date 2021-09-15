@@ -7,7 +7,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import { addComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
 import { useEffect } from 'react';
 import { actions } from 'react-redux-form';
 
@@ -21,7 +21,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
   fetchDishes: () => dispatch(fetchDishes()),
   resetFeedbackForm: () => dispatch(actions.reset('feedback')),
   fetchComments: () => dispatch(fetchComments()),
@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => ({
 
 function Main(props) {
   const {dishesState, commentsState, promotionsState, leadersState} = props;
-  const {addComment, fetchDishes, resetFeedbackForm, fetchComments, fetchPromos} = props;
+  const {postComment, fetchDishes, resetFeedbackForm, fetchComments, fetchPromos} = props;
 
   useEffect(() => {
     fetchDishes();
@@ -79,7 +79,7 @@ function Main(props) {
         dishErrorMessage={dishesState.errorMessage}
         comments={selectedComments}
         commentsErrorMessage={commentsState.errorMessage}
-        addComment={addComment} />
+        postComment={postComment} />
     );
   };
 

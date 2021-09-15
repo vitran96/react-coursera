@@ -34,7 +34,17 @@ export const fetchDishes = () => dispatch => {
     .catch(error => dispatch(dishesFailed(error.message)));
 };
 
-export const addComment = (dishId, rating, author, comment) => ({
+// export const addComment = (dishId, rating, author, comment) => ({
+//   type: ActionTypes.ADD_COMMENT,
+//   payload: {
+//     dishId: dishId,
+//     rating: rating,
+//     author: author,
+//     comment: comment
+//   }
+// });
+
+export const postComment = (dishId, rating, author, comment) => ({
   type: ActionTypes.ADD_COMMENT,
   payload: {
     dishId: dishId,
