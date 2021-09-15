@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 import { FormatDateTime } from '../shared/dateTimeHelper';
 import { Loading } from './LoadingComponent';
+import { FadeTransform, Stagger, Fade } from 'react-animation-components';
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
@@ -74,18 +75,21 @@ function CommentForm(props) {
 
 function RenderComments(props) {
   const { comments, postComment, errorMessage } = props;
-  const { dishId} = props;
+  const { dishId } = props;
   if (errorMessage) {
     return (
       <h4>{errorMessage}</h4>
     );
   }
 
-  const renderedComments = comments.map(comment => (<RenderComment commentObj={comment} key={comment.id} />));
+  const renderedComments = comments.map(comment => (
+    <RenderComment commentObj={comment} key={comment.id} />
+  ));
+
   return (
     <div className="col-12 col-md m-1">
       <h4>Comments</h4>
-      {renderedComments}
+      <Stagger in>{renderedComments}</Stagger>
       <CommentForm dishId={dishId} postComment={postComment} />
     </div>
   );
@@ -93,10 +97,10 @@ function RenderComments(props) {
 
 function RenderComment({ commentObj }) {
   return (
-    <div key={commentObj.id}>
+    <Fade in>
       <p>{commentObj.comment}</p>
       <p>-- {commentObj.author}, {commentDateTime(commentObj.date)}</p>
-    </div>
+    </Fade>
   );
 }
 
@@ -107,13 +111,20 @@ const commentDateTime = (date) => {
 function RenderDish({ dish }) {
   return (
     <div className="col-12 col-md-5 m-1">
-      <Card>
-        <CardImg width="100%" src={dish.image} alt={dish.name} />
-        <CardBody>
-          <h5 className="card-title">{dish.name}</h5>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+        in
+        transformProps={{
+          exitTransform: 'scale(0.5) translateY(-50%)'
+        }}
+      >
+        <Card>
+          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardBody>
+            <h5 className="card-title">{dish.name}</h5>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     </div>
   );
 }
